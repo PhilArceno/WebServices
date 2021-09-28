@@ -1,5 +1,7 @@
 package com.company;
 
+import java.sql.SQLOutput;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,19 +12,27 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         try {
-            int num = Integer.parseInt(scan.nextLine());
-            if (num < 0) throw new Error("negative number.");
-            System.out.println("Enter minimum integer:");
-            int min = Integer.parseInt(scan.nextLine());
-            System.out.println("Enter maximum integer:");
-            int max = Integer.parseInt(scan.nextLine());
-
-            if (min > max) throw new Error("min is greater than max.");
-            for (int i = 0; i < num; i++) {
-                System.out.println((int) (Math.random() * (max - min)) + min);
+            int num = scan.nextInt();
+            if (num < 0) {
+                System.out.println("Error: This value can't be a negative.");
+                System.exit(1);
             }
-        } catch (Exception err) {
-            System.out.println("Error: " + err);
+            System.out.println("Enter minimum integer:");
+            int min = scan.nextInt();
+            System.out.println("Enter maximum integer:");
+            int max = scan.nextInt();
+
+            if (min > max) {
+                System.out.println("Error: The min can't be greater than the max");
+                System.exit(1);
+            }
+            for (int i = 0; i < num; i++) {
+                int generated = (int) (Math.random() * (max - min)) + min;
+                System.out.printf("%s%d", i == 0 ? "" : ", ", generated);
+            }
+        } catch (InputMismatchException ex) {
+            System.out.println("Error: unable to parse the value");
+            System.exit(1);
         }
 
     }

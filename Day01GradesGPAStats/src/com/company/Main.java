@@ -8,11 +8,30 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<String> grades = getGradesArray();
         System.out.println("You've entered the following data:");
+        double average = 0;
+        int count = 0;
+        double highest = 0;
+        double lowest = letterGradeToNum(grades.get(0));
         for (String grade: grades) {
+            double num = letterGradeToNum(grade);
+            if (num != -1) {
+                average += num;
+                count++;
+                if (num > highest) {
+                    highest = num;
+                }
+                if (num < lowest) {
+                    lowest = num;
+                }
+            }
             System.out.println(
-                    grade + " = " + letterGradeToNum(grade)
+                    grade + " = " + num
             );
         }
+        average = average/count;
+        System.out.println("Average: " +  average);
+        System.out.println("Highest: " + highest);
+        System.out.println("Lowest: " + lowest);
     }
 
     static ArrayList getGradesArray() {
